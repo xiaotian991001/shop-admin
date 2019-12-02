@@ -9,14 +9,14 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/shop-product-api/pom.xml" />
-        <option value="$PROJECT_DIR$/shop-web/pom.xml" />
-        <option value="$PROJECT_DIR$/shop-commons/pom.xml" />
-        <option value="$PROJECT_DIR$/shop-cart-api/pom.xml" />
-        <option value="$PROJECT_DIR$/shop-type-api/pom.xml" />
         <option value="$PROJECT_DIR$/shop-brand-api/pom.xml" />
+        <option value="$PROJECT_DIR$/shop-cart-api/pom.xml" />
+        <option value="$PROJECT_DIR$/shop-commons/pom.xml" />
         <option value="$PROJECT_DIR$/shop-login-api/pom.xml" />
         <option value="$PROJECT_DIR$/shop-order-api/pom.xml" />
+        <option value="$PROJECT_DIR$/shop-product-api/pom.xml" />
+        <option value="$PROJECT_DIR$/shop-type-api/pom.xml" />
+        <option value="$PROJECT_DIR$/shop-web/pom.xml" />
       </list>
     </option>
   </component>
