@@ -40,6 +40,8 @@ public class CarServiceImpl implements ICartService {
         cartBean.setProductName(productData.getString("name"));
         cartBean.setMainImg(productData.getString("mainImg"));
         cartBean.setPrice(productData.getBigDecimal("price"));
+        cartBean.setStock(productData.getInteger("stock"));
+        System.out.println("库存数量"+productData.getInteger("stock"));
         //判断商品是否存在购物车
         if(redisTemplate.opsForHash().hasKey(cartId,productId)){
             CartBean cart= (CartBean) redisTemplate.opsForHash().get(cartId,productId);

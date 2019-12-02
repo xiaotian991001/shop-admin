@@ -1,33 +1,6 @@
 var loginFlag = false;
 
-$(function () {
-    var v_navHtml = "<nav class=\"navbar navbar-inverse\">\n" +
-        "    <div class=\"container-fluid\">\n" +
-        "        <!-- Brand and toggle get grouped for better mobile display -->\n" +
-        "        <div class=\"navbar-header\">\n" +
-        "           <ul> <li><a class=\"navbar-brand\" href='/'>飞狐电商前台-游乐购666</a></li></ul>\n" +
-        "        </div>\n" +
-        "\n" +
-        "        <!-- Collect the nav links, forms, and other content for toggling -->\n" +
-        "        <div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n" +
-        "            <ul class=\"nav navbar-nav navbar-right\">\n" +
-        "                <li id=\"loginInfo\"><a href=\"/login.html\">登录</a></li>\n" +
-        "                <li><a href=\"/reg.html\">注册</a></li>\n" +
-        "                <li><a href=\"/cart.html\">购物车</a></li>\n" +
-        "            </ul>\n" +
-        "        </div><!-- /.navbar-collapse -->\n" +
-        "    </div><!-- /.container-fluid -->\n" +
-        "</nav>";
-
-    $("#navDiv").html(v_navHtml);
-
-    $.ajaxSetup({
-        beforeSend: function(xhr) {
-            var v_token = $.cookie("fh_token");
-            console.log(v_token);
-            xhr.setRequestHeader("x-auth", v_token);
-        }
-    })
+/*
 
     $.ajax({
         type:"get",
@@ -191,4 +164,4 @@ function logout() {
             }
         }
     })
-}
+}*/

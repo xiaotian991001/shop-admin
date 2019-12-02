@@ -15,6 +15,8 @@ public class CartBean implements Serializable {
 
     private Integer count;
 
+    private Integer stock;
+
     private BigDecimal subtotal;
 
     private Boolean isChecked;
@@ -73,5 +75,13 @@ public class CartBean implements Serializable {
 
     public void setIsChecked(Boolean checked) {
         isChecked = checked;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 }
