@@ -60,7 +60,7 @@
 		<div class="checkout-steps">
 			<!--收件人信息-->
 			<div class="step-tit">
-				<h5>收件人信息<span><a data-toggle="modal" data-target=".edit" data-keyboard="false" class="newadd">新增收货地址</a></span></h5>
+				<h5>收件人信息<span><a data-toggle="modal" data-target=".edit" data-keyboard="false" class="newadd" onclick="toAdd()">新增收货地址</a></span></h5>
 			</div>
 			<div class="step-cont">
 				<div class="addressInfo">
@@ -94,6 +94,7 @@
 								</div>
 								<div class="modal-body">
 									<form action="" class="sui-form form-horizontal">
+										<input type="hidden" class="input-medium" id="addressId">
 										<div class="control-group">
 											<label class="control-label">收货人：</label>
 											<div class="controls">
@@ -135,6 +136,7 @@
 								</div>
 								<div class="modal-footer">
 									<button type="button" data-ok="modal" class="sui-btn btn-primary btn-large" onclick="insertAddress()">确定</button>
+
 									<button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
 								</div>
 							</div>
@@ -429,11 +431,7 @@
         if (token) {
             initCart();
             initAddress();
-            $(".address").hover(function(){
-                $(this).addClass("address-hover");
-            },function(){
-                $(this).removeClass("address-hover");
-            });
+
 
         }
     }
@@ -450,37 +448,28 @@
 				if (addressList.length>0){
 				    for (var i=0;i<addressList.length;i++) {
 				        var address=addressList[i];
-				        /*if (address.id==1) {
-							addressHtml+='<div>';
-							addressHtml+='<div class="con name selected"><a href="javascript:;" >'+address.addressName+'<span title="点击取消选择">&nbsp;</span></a></div>';
-							addressHtml+='<div class="con address">'+address.addressArea+' <span>'+address.contactNumber+'</span>';
-							addressHtml+='<span class="base">默认地址</span>';
-							addressHtml+='<span class="edittext"><a data-toggle="modal" data-target=".edit" data-keyboard="false" >编辑</a>&nbsp;&nbsp;<a href="javascript:;">删除</a></span>';
-							addressHtml+='</div>';
-							addressHtml+='<div class="clearfix"></div>';
-							addressHtml+='</div>';
-                        }
-                        else {*/
-                            addressHtml+='<div>';
-							if (i == 0) {
-								$(".fc-receiverInfo").html('寄送至:' + obj.data[i].address + ' 收货人：' + obj.data[i].orderName + ' ' + obj.data[i].phone);
-							}
+
+                            addressHtml+='<div  addressId=' + address.id + ' >';
+
                             addressHtml+='<div class="con name"><a href="javascript:;" >'+address.addressName+'<span title="点击取消选择">&nbsp;</a></div>';
                             addressHtml+='<div class="con address">'+address.addressArea+' <span>'+address.contactNumber+'</span>';
-
-                            addressHtml+='<span class="edittext"><a data-toggle="modal" data-target=".edit" data-keyboard="false" >编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteAddress('+address.id+')">删除</a></span>';
+							if (i == 0) {
+								$(".fc-receiverInfo").html('寄送至:' + address.addressArea + ' 收货人：' + address.addressName + ' ' + address.contactNumber);
+                                addressHtml += '<span class="base">默认地址</span>';
+							}
+                            addressHtml+='<span class="edittext"><a data-toggle="modal" data-target=".edit" data-keyboard="false"  addressId="' + address.id + '" onclick="toUpdate(this)">编辑</a>&nbsp;&nbsp;<a href="javascript:void(0);" onclick="deleteAddress('+address.id+')">删除</a></span>';
                             addressHtml+='</div>';
                             addressHtml+='<div class="clearfix"></div>';
                             addressHtml+='</div>';
-
-
-
                     }
 
                    $("#address").html(addressHtml);
-                    $(".addr-item .name").click(function(){
 
-                        $(this).toggleClass("selected").parent(0).siblings().find(".name").removeClass("selected");
+					bindClick();
+                    $(".address").hover(function(){
+                        $(this).addClass("address-hover");
+                    },function(){
+                        $(this).removeClass("address-hover");
                     });
 				}
             }
@@ -553,24 +542,113 @@
 		})
     }
     function insertAddress() {
+        var id = $("#addressId").val();
+        var addressName = $("#addressName").val();
+        var addressArea = $("#addressArea").val();
+        var contactNumber = $("#contactNumber").val();
+        var email = $("#email").val();
+        var addressAlias = $("#addressAlias").val();
+        if (id==""){
+            $.ajax({
+                url:"http://localhost:8096/address",
+                type:"post",
+                dataType:"json",
+                data:{
+                    "addressName":addressName,
+                    "addressArea":addressArea,
+                    "contactNumber":contactNumber,
+                    "email":email,
+                    "addressAlias":addressAlias
+                },
+                success:function (result) {
+                    initAddress();
+                }
 
-		alert($("#addressName").val())
-        $.ajax({
-			url:"http://localhost:8096/address",
-			type:"post",
-			dataType:"json",
-			data:{
-			    "addressName":$("#addressName").val(),
-                "addressArea":$("#addressArea").val(),
-                "contactNumber":$("#contactNumber").val(),
-                "email":$("#email").val(),
-                "addressAlias":$("#addressAlias").val()
-			},
-			success:function (result) {
-                initAddress();
+            })
+		}else {
+            $.ajax({
+                url: "http://localhost:8096/address/updateAddress",
+                dataType: "json",
+                type: "post",
+                data: {
+                    "addressName": addressName,
+                    "addressArea": addressArea,
+                    "contactNumber": contactNumber,
+                    "email": email,
+                    "addressAlias": addressAlias,
+                    "id": id
+                },
+                success: function (result) {
+                    initAddress();
+                }
+            })
+		}
+
+    }
+
+    function bindClick() {
+        $(".addr-item .name").click(function () {
+            $(this).toggleClass("selected").parent(0).siblings().find(".name").removeClass("selected");
+            if (!$(this).hasClass("selected")) {
+                $(".fc-receiverInfo").html('还没有选择收货地址');
+            } else {
+                var addressId = $(this).parent(0).attr("addressId");
+
+                $.ajax({
+                    url: "http://localhost:8096/address/byOneAddress",
+                    dataType: "json",
+                    type:"post",
+					data:{
+                       "addressId":addressId
+					},
+                    success: function (result) {
+                        if (result.code == 200) {
+                            var data = result.data;
+                            $(".fc-receiverInfo").html('寄送至:' + data.addressArea + ' 收货人：' + data.addressName + ' ' + data.contactNumber);
+                        }
+                    }
+                })
             }
+        })
+        /*$(".payType li").click(function () {
+            $(this).toggleClass("selected").siblings().removeClass("selected");
+        });*/
+    }
 
-		})
+
+
+    function clearForm() {
+        var formInput = $(".form-horizontal").find("input");
+        $.each(formInput, function () {
+            $(this).val("");
+        })
+    }
+    function toAdd(){
+        $(".modal-title").html("增加收货地址");
+        clearForm();
+    }
+    function toUpdate(obj) {
+        clearForm();
+        var id = $(obj).attr("addressId");
+        $(".modal-title").html("修改收货地址");
+        $.ajax({
+            url: "http://localhost:8096/address/upGetAddress",
+            dataType: "json",
+            type: "post",
+			data:{
+                "id":id
+			},
+            success: function (result) {
+                var obj = result.data
+                $("#addressName").val(obj.addressName);
+                $("#addressArea").val(obj.addressArea);
+                $("#contactNumber").val(obj.contactNumber);
+                $("#email").val(obj.email);
+                $("#addressAlias").val(obj.addressAlias);
+                $("#addressId").val(obj.id);
+            }
+        })
+
     }
 
 

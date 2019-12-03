@@ -9,4 +9,10 @@ public interface IAddressService {
     ResponseServer insertAddress(AddressBean addressBean);
 
     void deleteAddress(Integer addressId);
+
+    ResponseServer byOneAddress(Integer addressId);
+
+    ResponseServer upGetAddress(Integer id);
+
+    void updateAddress(AddressBean address);
 }

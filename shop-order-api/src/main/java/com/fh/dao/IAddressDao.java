@@ -15,4 +15,9 @@ public interface IAddressDao {
     void insertAddress(AddressBean addressBean);
 
     void deleteAddress(Integer addressId);
+
+    AddressBean byOneAddress(Integer addressId);
+
+
+    void updateAddress(AddressBean address);
 }

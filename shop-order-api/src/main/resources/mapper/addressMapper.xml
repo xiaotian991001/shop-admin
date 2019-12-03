@@ -5,14 +5,23 @@
     <select id="queryAddress" resultType="com.fh.bean.AddressBean" parameterType="String">
 
       select id,address_name addressName,address_area addressArea,contact_number contactNumber,email,address_alias addressAlias,phone from t_shop_address
-      where phone=#{phone}
+      where phone=#{phone}  group by update_time desc
     </select>
     <insert id="insertAddress" parameterType="com.fh.bean.AddressBean">
-        insert into t_shop_address (address_name,address_area,contact_number,email,address_alias,phone)
-        values(#{addressName},#{addressArea},#{contactNumber},#{email},#{addressAlias},#{phone})
+        insert into t_shop_address (address_name,address_area,contact_number,email,address_alias,phone,update_time)
+        values(#{addressName},#{addressArea},#{contactNumber},#{email},#{addressAlias},#{phone},#{updateTime})
     </insert>
     <delete id="deleteAddress" parameterType="Integer">
         delete from t_shop_address where id=#{addressId}
     </delete>
+    <select id="byOneAddress" parameterType="Integer" resultType="com.fh.bean.AddressBean">
+        select id,address_name addressName,address_area addressArea,contact_number contactNumber,email,address_alias addressAlias,phone from t_shop_address
+      where id=#{addressId}
+    </select>
+    <update id="updateAddress" parameterType="com.fh.bean.AddressBean">
+       update t_shop_address set address_name=#{addressName},address_area=#{addressArea},contact_number=#{contactNumber},email=#{email},address_alias=#{addressAlias}, update_time=#{updateTime}
+        where id=#{id}
+    </update>
+
 
 </mapper>

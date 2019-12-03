@@ -38,4 +38,25 @@ public class AddressController {
         addressService.deleteAddress(addressId);
         return ResponseServer.success();
     }
+    @PostMapping("byOneAddress")
+    @LoginAnnotation
+    public ResponseServer byOneAddress(Integer addressId){
+
+        return addressService.byOneAddress(addressId);
+    }
+
+    @PostMapping("upGetAddress")
+    @LoginAnnotation
+    public ResponseServer upGetAddress(Integer id){
+
+        return addressService.upGetAddress(id);
+    }
+    @PostMapping("updateAddress")
+    @LoginAnnotation
+    public ResponseServer updateAddress(AddressBean address){
+        System.out.println(address.getAddressName());
+        addressService.updateAddress(address);
+        return ResponseServer.success();
+    }
+
 }

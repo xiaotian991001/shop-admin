@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,12 +30,32 @@ public class AddressService implements IAddressService {
 
     @Override
     public ResponseServer insertAddress(AddressBean addressBean) {
+        addressBean.setUpdateTime(new Date());
         addressDao.insertAddress(addressBean);
+
         return ResponseServer.success();
     }
 
     @Override
     public void deleteAddress(Integer addressId) {
         addressDao.deleteAddress(addressId);
+    }
+
+    @Override
+    public ResponseServer byOneAddress(Integer addressId) {
+
+        return ResponseServer.success(addressDao.byOneAddress(addressId));
+    }
+
+    @Override
+    public ResponseServer upGetAddress(Integer id) {
+        AddressBean address=addressDao.byOneAddress(id);
+        return ResponseServer.success(address);
+    }
+
+    @Override
+    public void updateAddress(AddressBean address) {
+        address.setUpdateTime(new Date());
+        addressDao.updateAddress(address);
     }
 }
