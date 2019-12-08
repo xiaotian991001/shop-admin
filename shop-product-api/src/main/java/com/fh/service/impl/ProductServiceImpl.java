@@ -35,4 +35,10 @@ public class ProductServiceImpl implements IProductService {
         return ResponseServer.success(product);
     }
 
+    @Override
+    public ResponseServer productStock(Integer productId) {
+        ProductBean product=productDao.productStock(productId);
+        return ResponseServer.success(product);
+    }
+
 }

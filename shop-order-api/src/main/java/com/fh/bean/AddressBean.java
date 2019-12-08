@@ -1,5 +1,6 @@
 package com.fh.bean;
 
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -20,20 +21,6 @@ public class AddressBean implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    private boolean isChecked;
-
-    public boolean getIsChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
     }
 
     public Integer getId() {

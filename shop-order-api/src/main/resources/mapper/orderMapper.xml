@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.fh.dao.IOrderDao">
+
+    <!--<insert id="" parameterType="string">-->
+
+    <!--</insert>-->
+
+    <update id="updateProductStock">
+       update t_shop_product set stock=stock-#{count} where id=#{productId} and stock-#{count}>-1
+    </update>
+    <insert id="insertInto" parameterType="com.fh.bean.Order">
+        insert into t_shop_order (id,userId,status,totalPrice,totalCount,payType,addressId,createTime)
+        values(#{id},#{userId},#{status},#{totalPrice},#{totalCount},#{payType},#{addressId},#{createTime})
+    </insert>
+    <update id="updatePay" parameterType="com.fh.bean.Order">
+       update t_shop_order set payTime=#{payTime},status=#{status} where id=#{id}
+    </update>
+
+</mapper>

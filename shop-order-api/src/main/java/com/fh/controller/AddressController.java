@@ -1,6 +1,5 @@
 package com.fh.controller;
 
-
 import com.fh.bean.AddressBean;
 import com.fh.login.aop.LoginAnnotation;
 import com.fh.service.IAddressService;
@@ -11,52 +10,50 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin(maxAge = 3600,origins = "http://localhost:8081",exposedHeaders="NOLOGIN")
 @RequestMapping("address")
-@CrossOrigin(origins = "http://localhost:8081",maxAge = 3600)
 public class AddressController {
 
     @Autowired
-    IAddressService addressService;
-    @GetMapping
+    private IAddressService addressService;
+
+    @GetMapping("/queryAddress")
     @LoginAnnotation
     public ResponseServer queryAddress(HttpServletRequest request){
         String phone = (String) request.getAttribute("phone");
         return addressService.queryAddress(phone);
     }
 
-    @PostMapping
-    @LoginAnnotation
-    public ResponseServer insertAddress(AddressBean addressBean, HttpServletRequest request){
-        String phone = (String) request.getAttribute("phone");
-        addressBean.setPhone(phone);
-        return addressService.insertAddress(addressBean);
-    }
-
-    @DeleteMapping("/{addressId}")
-    @LoginAnnotation
-    public ResponseServer deleteAddress(@PathVariable Integer addressId){
-        addressService.deleteAddress(addressId);
-        return ResponseServer.success();
-    }
-    @PostMapping("byOneAddress")
+    @PostMapping("/byOneAddress")
     @LoginAnnotation
     public ResponseServer byOneAddress(Integer addressId){
-
         return addressService.byOneAddress(addressId);
     }
 
-    @PostMapping("upGetAddress")
+    @PostMapping("/addAddress")
     @LoginAnnotation
-    public ResponseServer upGetAddress(Integer id){
-
-        return addressService.upGetAddress(id);
+    public ResponseServer addAddress(AddressBean address,HttpServletRequest request){
+        String phone = (String) request.getAttribute("phone");
+        address.setPhone(phone);
+        return addressService.addAddress(address);
     }
-    @PostMapping("updateAddress")
+
+    /**
+     * 回显
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/queryAddressById")
+    @LoginAnnotation
+    public ResponseServer queryAddressById(Integer addressId){
+        return addressService.queryAddressById(addressId);
+    }
+
+    @PostMapping("/updateAddress")
     @LoginAnnotation
     public ResponseServer updateAddress(AddressBean address){
-        System.out.println(address.getAddressName());
-        addressService.updateAddress(address);
-        return ResponseServer.success();
+        return addressService.updateAddress(address);
     }
 
 }

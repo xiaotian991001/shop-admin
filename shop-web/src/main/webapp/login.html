@@ -156,6 +156,7 @@
         }
     }
     function binding() {
+        alert(1)
         var phone = $.trim($('#phone1').val());
         if (phone=="") alert("请输入手机号");
         var code = $.trim($('#code1').val());
@@ -168,7 +169,7 @@
                 "code":code
             },
             success:function (result) {
-
+                alert(result.message)
                 if (result.code==200){
                     alert(result.message)
                     sessionStorage.setItem("token",result.data)

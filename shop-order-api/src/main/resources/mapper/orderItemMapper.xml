@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.fh.dao.IOrderItemDao">
+
+
+    <insert id="insertInto" parameterType="com.fh.bean.OrderItem">
+        insert into t_shop_order_detail (orderId,userId,productId,productName,price,subTotalPrice,image,count)
+        values(#{orderId},#{userId},#{productId},#{productName},#{price},#{subTotalPrice},#{image},#{count})
+    </insert>
+
+
+</mapper>

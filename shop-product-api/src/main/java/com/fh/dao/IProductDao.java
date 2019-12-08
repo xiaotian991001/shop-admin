@@ -19,4 +19,6 @@ public interface IProductDao {
     List<ProductBean> queryList(@Param("page") PageBean<ProductBean> page, @Param("paramter") ProductParamter paramter);
 
     ProductBean getProductById(Integer productId);
+
+    ProductBean productStock(Integer productId);
 }

@@ -10,4 +10,6 @@ public interface IProductService {
     PageBean<ProductBean> queryProductPageList(PageBean<ProductBean> page, ProductParamter paramter);
 
     ResponseServer getProductById(Integer productId);
+
+    ResponseServer productStock(Integer productId);
 }

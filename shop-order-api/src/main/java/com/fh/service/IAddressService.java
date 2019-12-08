@@ -6,13 +6,11 @@ import com.fh.utils.response.ResponseServer;
 public interface IAddressService {
     ResponseServer queryAddress(String phone);
 
-    ResponseServer insertAddress(AddressBean addressBean);
-
-    void deleteAddress(Integer addressId);
-
     ResponseServer byOneAddress(Integer addressId);
 
-    ResponseServer upGetAddress(Integer id);
+    ResponseServer addAddress(AddressBean address);
 
-    void updateAddress(AddressBean address);
+    ResponseServer queryAddressById(Integer addressId);
+
+    ResponseServer updateAddress(AddressBean address);
 }

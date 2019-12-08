@@ -33,5 +33,9 @@
         select DISTINCT p.id,p.name,p.subtitle,p.main_img mainImg,p.price,p.stock from t_shop_product p
         where p.id=#{productId}
     </select>
+    <select id="productStock" parameterType="java.lang.Integer" resultType="com.fh.bean.ProductBean">
+        select  p.id,p.name,p.subtitle,p.main_img mainImg,p.price,p.stock from t_shop_product p
+        where p.id=#{productId}
+    </select>
 
 </mapper>

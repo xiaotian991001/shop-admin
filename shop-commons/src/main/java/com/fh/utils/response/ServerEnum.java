@@ -20,6 +20,10 @@ public enum ServerEnum {
     SERVER_BUSYNESS(9002, "服务器繁忙"),
     SERVER_ERROR(9003, "服务器未知异常"),
     SUCCESS(200, "成功"),
+    ALL_STOCK_NULL(20001,"商品的库存都不足了"),
+    NO_ORDER_TO_PAY(20002,"没有要支付的订单"),
+    CRATER_PAY_ERROR(20003,"生成支付二维码失败"),
+    PAY_TIMEOUT(20004,"支付超时请刷新页面"),
     ERROR(500, "失败");
 
     private ServerEnum(Integer code, String message) {

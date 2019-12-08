@@ -13,7 +13,9 @@ public class ResponseServer {
         this.data = data;
     }
 
-
+    public static ResponseServer error(Integer code,String msg){
+        return new ResponseServer(code,msg);
+    }
     private ResponseServer(Integer code, String message) {
         this.code = code;
         this.message = message;

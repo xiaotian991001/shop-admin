@@ -1,5 +1,6 @@
 package com.fh.bean;
 
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -21,7 +22,13 @@ public class CartBean implements Serializable {
 
     private Boolean isChecked;
 
+    public Integer getStock() {
+        return stock;
+    }
 
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
 
     public Integer getProductId() {
         return productId;
@@ -77,13 +84,5 @@ public class CartBean implements Serializable {
 
     public void setIsChecked(Boolean checked) {
         isChecked = checked;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 }

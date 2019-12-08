@@ -1,34 +1,30 @@
 package com.fh.controller;
 
-
 import com.fh.login.aop.LoginAnnotation;
 import com.fh.service.IOrderService;
 import com.fh.utils.response.ResponseServer;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
-@RestController
-@CrossOrigin(origins = "http://localhost:8081",maxAge = 3600,exposedHeaders = "NOLOGIN")
 @RequestMapping("orders")
+@RestController
+@CrossOrigin(maxAge = 3600,origins = "http://localhost:8081",exposedHeaders="NOLOGIN")
 public class OrderController {
 
-
     @Autowired
-    IOrderService orderService;
+    private IOrderService orderService;
 
-    @GetMapping
+    @PutMapping
     @LoginAnnotation
-    public ResponseServer orderPay(){
-        orderService.orderPay();
-        return ResponseServer.success(new ArrayList<>());
+    public ResponseServer createOrder(HttpServletRequest request,Integer addressId){
+        String phone = (String) request.getAttribute("phone");
+        return orderService.createOrder(addressId,phone);
     }
-
-
 
 }

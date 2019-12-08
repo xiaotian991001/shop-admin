@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.fh.dao.IPayLogDao">
+    <insert id="insertInto" parameterType="com.fh.bean.PayLog">
+        insert into t_paylog (outTradeNo,orderId,userId,createTime,payTime,payMoney,payType,payStatus)
+        values(#{outTradeNo},#{orderId},#{userId},#{createTime},#{payTime},#{payMoney},#{payType},#{payStatus})
+
+    </insert>
+    <update id="updatePay" parameterType="com.fh.bean.PayLog">
+        update t_shop_order set payStatus=#{payStatus},payTime=#{payTime},transactionId=#{transactionId} where outTradeNo=#{outTradeNo}
+    </update>
+</mapper>

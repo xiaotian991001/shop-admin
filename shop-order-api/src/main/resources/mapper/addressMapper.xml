@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.fh.dao.IAddressDao">
+
     <select id="queryAddress" resultType="com.fh.bean.AddressBean" parameterType="String">
 
       select id,address_name addressName,address_area addressArea,contact_number contactNumber,email,address_alias addressAlias,phone from t_shop_address
@@ -22,6 +23,7 @@
        update t_shop_address set address_name=#{addressName},address_area=#{addressArea},contact_number=#{contactNumber},email=#{email},address_alias=#{addressAlias}, update_time=#{updateTime}
         where id=#{id}
     </update>
+
 
 
 </mapper>
